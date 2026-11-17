@@ -1,0 +1,2400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#F7F5F2" />
+  <title>Prépa Ski · Force & Genoux</title>
+
+  <!-- Google Fonts : Fraunces (éditorial doux) & DM Sans (lisible & moderne) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS — ALPINE CHIC / BOUTIQUE WELLNESS STUDIO
+       ========================================================================== */
+    :root {
+      --bg-alabaster: #F7F5F2;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F1EDE7;
+      --bg-input: #FAF9F7;
+      --border-stone: #E6E1DA;
+      --border-strong: #D4CEC4;
+
+      --text-charcoal: #1F2933;
+      --text-muted: #616E7C;
+      --text-light: #82909E;
+
+      --alpine-pine: #3D6356;
+      --alpine-pine-dark: #2E4D42;
+      --alpine-pine-soft: rgba(61, 99, 86, 0.10);
+      --alpine-pine-border: rgba(61, 99, 86, 0.32);
+
+      --terracotta: #C67D63;
+      --terracotta-dark: #B0684E;
+      --terracotta-soft: rgba(198, 125, 99, 0.12);
+      --terracotta-border: rgba(198, 125, 99, 0.35);
+
+      --shadow-card: 0 4px 20px rgba(31, 41, 51, 0.045);
+      --shadow-float: 0 -8px 28px rgba(31, 41, 51, 0.08);
+
+      --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-alabaster);
+      color: var(--text-charcoal);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.45;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      /* Marge basse généreuse pour que le chronomètre flottant ne masque jamais les boutons finaux */
+      padding-bottom: calc(176px + var(--safe-bottom));
+    }
+
+    button, input {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      touch-action: manipulation;
+    }
+
+    /* ==========================================================================
+       CONTENEUR CENTRÉ MOBILE-FIRST (MAX 480PX)
+       ========================================================================== */
+    .app-shell {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       EN-TÊTE FLOTTANT & NAVIGATION PAR PILULES
+       ========================================================================== */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(247, 245, 242, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-stone);
+      padding: 12px 16px 12px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .brand-block h1 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-charcoal);
+      line-height: 1.15;
+    }
+
+    .brand-subtitle {
+      margin: 3px 0 0 0;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.01em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .counter-pill {
+      min-height: 44px;
+      padding: 0 11px;
+      border-radius: 999px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-stone);
+      box-shadow: 0 2px 8px rgba(31, 41, 51, 0.03);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--alpine-pine);
+      white-space: nowrap;
+    }
+
+    .counter-pill strong {
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn-conseils {
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-stone);
+      box-shadow: 0 2px 8px rgba(31, 41, 51, 0.03);
+      color: var(--text-charcoal);
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-conseils:active {
+      transform: scale(0.97);
+      background: var(--bg-subtle);
+    }
+
+    /* Sélecteur segmenté Séance A / Séance B */
+    .segmented-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: var(--bg-subtle);
+      padding: 5px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-stone);
+    }
+
+    .seg-btn {
+      min-height: 46px;
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .seg-btn .seg-main {
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .seg-btn .seg-sub {
+      font-size: 0.7rem;
+      opacity: 0.85;
+      margin-top: 1px;
+    }
+
+    .seg-btn.active {
+      background: var(--alpine-pine);
+      color: #FFFFFF;
+      box-shadow: 0 3px 10px rgba(61, 99, 86, 0.25);
+    }
+
+    /* Barre de progression discrète */
+    .session-progress-row {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: var(--border-stone);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--alpine-pine), var(--terracotta));
+      border-radius: 999px;
+      transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-text {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* ==========================================================================
+       CONTENU PRINCIPAL : ÉCHAUFFEMENT & CARTES D'EXERCICES
+       ========================================================================== */
+    .main-content {
+      padding: 14px 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Carte Échauffement Express (Repliable) */
+    .warmup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-stone);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .warmup-toggle {
+      width: 100%;
+      min-height: 54px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .warmup-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .warmup-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--terracotta-soft);
+      color: var(--terracotta);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .warmup-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      margin: 0;
+    }
+
+    .warmup-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .warmup-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .warmup-badge.all-done {
+      background: var(--alpine-pine-soft);
+      color: var(--alpine-pine);
+    }
+
+    .chevron-icon {
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .warmup-card.open .chevron-icon {
+      transform: rotate(180deg);
+    }
+
+    .warmup-body {
+      display: none;
+      padding: 0 16px 14px;
+      border-top: 1px solid var(--border-stone);
+    }
+
+    .warmup-card.open .warmup-body {
+      display: block;
+    }
+
+    .warmup-list {
+      margin: 10px 0 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .warmup-item-btn {
+      width: 100%;
+      min-height: 48px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-input);
+      border: 1px solid var(--border-stone);
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+
+    .warmup-item-btn.checked {
+      background: var(--alpine-pine-soft);
+      border-color: var(--alpine-pine-border);
+    }
+
+    .warmup-check-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--border-strong);
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: transparent;
+      transition: all 0.15s ease;
+    }
+
+    .warmup-item-btn.checked .warmup-check-circle {
+      background: var(--alpine-pine);
+      border-color: var(--alpine-pine);
+      color: #FFFFFF;
+    }
+
+    .warmup-item-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .warmup-item-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+
+    .warmup-item-btn.checked .warmup-item-title {
+      color: var(--alpine-pine-dark);
+    }
+
+    .warmup-item-desc {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    /* En-tête de section Séance */
+    .session-intro {
+      padding: 2px 4px;
+    }
+
+    .session-intro h2 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-charcoal);
+    }
+
+    .session-intro p {
+      margin: 3px 0 0 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       CARTE D'EXERCICE BOUTIQUE STUDIO
+       ========================================================================== */
+    .exercise-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-stone);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.2s ease;
+    }
+
+    .exercise-card.card-completed {
+      border-color: var(--alpine-pine-border);
+    }
+
+    .ex-top-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+    }
+
+    .ex-num-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      background: var(--alpine-pine-soft);
+      color: var(--alpine-pine);
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .ex-title-area {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .ex-title-line {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .ex-name {
+      margin: 0;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+      line-height: 1.3;
+    }
+
+    .ex-target-pill {
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      color: var(--text-charcoal);
+      white-space: nowrap;
+    }
+
+    /* Rappel technique 1 ligne (Terracotta doux) */
+    .ex-cue-pill {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 9px;
+      background: var(--terracotta-soft);
+      color: #8E4A33;
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* Bouton accordéon "Consignes & rôle ski" */
+    .btn-details-toggle {
+      margin-top: 8px;
+      min-height: 36px;
+      padding: 4px 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--alpine-pine);
+    }
+
+    .btn-details-toggle svg {
+      transition: transform 0.2s ease;
+    }
+
+    .btn-details-toggle.open svg {
+      transform: rotate(180deg);
+    }
+
+    .ex-details-drawer {
+      display: none;
+      margin-top: 6px;
+      padding: 11px 13px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-input);
+      border: 1px solid var(--border-stone);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .ex-details-drawer.open {
+      display: block;
+    }
+
+    /* ==========================================================================
+       CHRONO EFFORT INTÉGRÉ (EXERCICES ISOMÉTRIQUES / TEMPORISÉS)
+       ========================================================================== */
+    .effort-timer-box {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: var(--terracotta-soft);
+      border: 1px solid var(--terracotta-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .effort-timer-box.effort-done {
+      background: var(--alpine-pine-soft);
+      border-color: var(--alpine-pine-border);
+    }
+
+    .btn-effort-main {
+      flex: 1;
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 10px;
+      background: var(--terracotta);
+      color: #FFFFFF;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 3px 10px rgba(198, 125, 99, 0.28);
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-effort-main:active {
+      transform: scale(0.98);
+    }
+
+    .btn-effort-main.running {
+      background: var(--terracotta-dark);
+    }
+
+    .btn-effort-main.finished {
+      background: var(--alpine-pine);
+      box-shadow: 0 3px 10px rgba(61, 99, 86, 0.25);
+    }
+
+    .effort-digits {
+      font-variant-numeric: tabular-nums;
+      font-size: 0.96rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .btn-effort-reset {
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 10px;
+      background: #FFFFFF;
+      border: 1px solid var(--terracotta-border);
+      color: var(--terracotta-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       CONTRÔLE DE CHARGE (KG) & BOUTONS STEPPER +/-
+       ========================================================================== */
+    .weight-row {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-stone);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .weight-label-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .weight-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+
+    .btn-bw-switch {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--alpine-pine);
+      text-align: left;
+      padding: 2px 0;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .weight-stepper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-step {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-stone);
+      color: var(--text-charcoal);
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.12s ease, transform 0.1s ease;
+    }
+
+    .btn-step:active {
+      transform: scale(0.94);
+      background: var(--border-stone);
+    }
+
+    .weight-input-wrap {
+      position: relative;
+      width: 78px;
+    }
+
+    .input-kg {
+      width: 100%;
+      height: 44px;
+      padding: 0 24px 0 8px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-input);
+      border: 1px solid var(--border-strong);
+      color: var(--text-charcoal);
+      font-size: 1rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+    }
+
+    .input-kg:focus {
+      outline: none;
+      border-color: var(--alpine-pine);
+      background: #FFFFFF;
+    }
+
+    .unit-tag {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .bw-pill-display {
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-stone);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ==========================================================================
+       3 CASES À COCHER DES SÉRIES (SÉRIE 1, SÉRIE 2, SÉRIE 3)
+       ========================================================================== */
+    .sets-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .btn-set-check {
+      min-height: 48px;
+      padding: 8px 6px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-input);
+      border: 1.5px solid var(--border-stone);
+      color: var(--text-charcoal);
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .btn-set-check:active {
+      transform: scale(0.96);
+    }
+
+    .set-check-box {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border-strong);
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: transparent;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .btn-set-check.done {
+      background: var(--alpine-pine);
+      border-color: var(--alpine-pine);
+      color: #FFFFFF;
+      box-shadow: 0 3px 12px rgba(61, 99, 86, 0.24);
+    }
+
+    .btn-set-check.done .set-check-box {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: transparent;
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       BLOC FIN DE SÉANCE (VALIDATION & RÉINITIALISATION DES COCHES)
+       ========================================================================== */
+    .completion-card {
+      margin-top: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-stone);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .toast-feedback {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--alpine-pine-soft);
+      border: 1px solid var(--alpine-pine-border);
+      color: var(--alpine-pine-dark);
+      font-size: 0.84rem;
+      font-weight: 700;
+      display: none;
+    }
+
+    .toast-feedback.show {
+      display: block;
+    }
+
+    .btn-finish-workout {
+      width: 100%;
+      min-height: 52px;
+      padding: 0 18px;
+      border-radius: var(--radius-md);
+      background: var(--alpine-pine);
+      color: #FFFFFF;
+      font-size: 0.94rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 18px rgba(61, 99, 86, 0.25);
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-finish-workout:active {
+      transform: scale(0.98);
+    }
+
+    .btn-finish-workout.confirming {
+      background: var(--terracotta);
+      box-shadow: 0 6px 18px rgba(198, 125, 99, 0.3);
+    }
+
+    .btn-reset-only {
+      min-height: 44px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .btn-reset-only.confirming {
+      color: var(--terracotta-dark);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       BARRE FLOTTANTE DE REPOS (STICKY BOTTOM REST TIMER)
+       ========================================================================== */
+    .floating-rest-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-stone);
+      box-shadow: var(--shadow-float);
+      padding: 10px 16px calc(10px + var(--safe-bottom));
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .floating-rest-bar.rest-running {
+      border-top-color: var(--alpine-pine);
+    }
+
+    .floating-rest-bar.rest-finished {
+      background: #EDF5F2;
+      border-top-color: var(--alpine-pine);
+      animation: softPulse 0.8s ease-in-out 3;
+    }
+
+    @keyframes softPulse {
+      0%, 100% { background-color: #EDF5F2; }
+      50% { background-color: #DCECE6; }
+    }
+
+    .rest-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rest-progress-line {
+      width: 100%;
+      height: 4px;
+      background: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .rest-progress-fill {
+      height: 100%;
+      width: 100%;
+      background: var(--alpine-pine);
+      transition: width 0.2s linear;
+    }
+
+    .rest-main-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .rest-clock {
+      display: flex;
+      flex-direction: column;
+      min-width: 96px;
+    }
+
+    .rest-digits {
+      font-size: 1.55rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.05;
+      color: var(--text-charcoal);
+      letter-spacing: -0.02em;
+    }
+
+    .floating-rest-bar.rest-running .rest-digits {
+      color: var(--alpine-pine);
+    }
+
+    .rest-sublabel {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .floating-rest-bar.rest-finished .rest-sublabel {
+      color: var(--alpine-pine);
+      font-weight: 700;
+    }
+
+    .rest-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-rest-play {
+      min-width: 88px;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: var(--radius-sm);
+      background: var(--alpine-pine);
+      color: #FFFFFF;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .btn-rest-play.is-running {
+      background: var(--terracotta);
+    }
+
+    .btn-rest-reset {
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-stone);
+      color: var(--text-charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rest-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .rest-presets {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex: 1;
+    }
+
+    .btn-preset {
+      flex: 1;
+      min-height: 44px;
+      border-radius: 10px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-stone);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-preset.active {
+      background: var(--alpine-pine-soft);
+      border-color: var(--alpine-pine-border);
+      color: var(--alpine-pine);
+    }
+
+    .btn-auto-rest {
+      min-height: 44px;
+      padding: 0 11px;
+      border-radius: 10px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-stone);
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .btn-auto-rest.on {
+      background: var(--alpine-pine-soft);
+      border-color: var(--alpine-pine-border);
+      color: var(--alpine-pine);
+    }
+
+    .auto-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-light);
+    }
+
+    .btn-auto-rest.on .auto-dot {
+      background: var(--alpine-pine);
+    }
+
+    /* ==========================================================================
+       BOTTOM-SHEET / MODALE CONSEILS & SAUVEGARDE JSON
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(31, 41, 51, 0.48);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    @media (min-width: 520px) {
+      .modal-overlay {
+        align-items: center;
+      }
+    }
+
+    .sheet-card {
+      width: 100%;
+      max-width: 480px;
+      max-height: 86vh;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-stone);
+      border-radius: 24px;
+      padding: 20px 18px;
+      box-shadow: 0 20px 50px rgba(31, 41, 51, 0.22);
+    }
+
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-stone);
+      margin-bottom: 14px;
+    }
+
+    .sheet-header h2 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+
+    .btn-close-sheet {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      color: var(--text-charcoal);
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .advice-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border-stone);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    .advice-card h3 {
+      margin: 0 0 4px 0;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--alpine-pine);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .advice-card.knee-alert h3 {
+      color: var(--terracotta-dark);
+    }
+
+    .advice-card p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .backup-section {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-stone);
+    }
+
+    .backup-section h3 {
+      margin: 0 0 6px 0;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-charcoal);
+    }
+
+    .backup-section p {
+      margin: 0 0 10px 0;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .backup-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-backup {
+      min-height: 46px;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-stone);
+      color: var(--text-charcoal);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .backup-status {
+      margin-top: 8px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--alpine-pine);
+      min-height: 18px;
+    }
+
+    @media (max-width: 360px) {
+      .brand-block h1 {
+        font-size: 1.35rem;
+      }
+      .rest-digits {
+        font-size: 1.35rem;
+      }
+      .rest-clock {
+        min-width: 82px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+    <!-- =====================================================================
+         EN-TÊTE FLOTTANT : TITRE ÉDITORIAL, COMPTEUR & SÉLECTEUR A / B
+         ===================================================================== -->
+    <header class="sticky-header">
+      <div class="header-top">
+        <div class="brand-block">
+          <h1>Prépa Ski</h1>
+          <p class="brand-subtitle">Force · Stabilité · Protection des genoux</p>
+        </div>
+
+        <div class="header-actions">
+          <div class="counter-pill" aria-label="Nombre de séances validées">
+            <span>Séances :</span>
+            <strong id="completedCountBadge">0</strong>
+          </div>
+
+          <button type="button" id="btnOpenAdvice" class="btn-conseils" aria-label="Conseils et sauvegarde">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Conseils</span>
+          </button>
+        </div>
+      </div>
+
+      <nav class="segmented-nav" role="tablist" aria-label="Choix de la séance">
+        <button type="button" class="seg-btn active" data-session="A" role="tab" aria-selected="true">
+          <span class="seg-main">Séance A</span>
+          <span class="seg-sub">Freinage &amp; Appuis</span>
+        </button>
+        <button type="button" class="seg-btn" data-session="B" role="tab" aria-selected="false">
+          <span class="seg-main">Séance B</span>
+          <span class="seg-sub">Stabilité &amp; Genoux</span>
+        </button>
+      </nav>
+
+      <div class="session-progress-row" aria-live="polite">
+        <div class="progress-track">
+          <div id="sessionProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="sessionProgressText" class="progress-text">0 / 15 séries</span>
+      </div>
+    </header>
+
+    <!-- =====================================================================
+         CONTENU PRINCIPAL : ÉCHAUFFEMENT + EXERCICES + FIN DE SÉANCE
+         ===================================================================== -->
+    <main class="main-content">
+      <!-- Carte Échauffement express (5 min) -->
+      <section id="warmupCard" class="warmup-card">
+        <button type="button" id="btnWarmupToggle" class="warmup-toggle" aria-expanded="false">
+          <div class="warmup-title-group">
+            <div class="warmup-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg>
+            </div>
+            <h2 class="warmup-title">Échauffement express · 5 min</h2>
+          </div>
+
+          <div class="warmup-meta">
+            <span id="warmupBadge" class="warmup-badge">0/3</span>
+            <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </button>
+
+        <div class="warmup-body">
+          <ul id="warmupList" class="warmup-list"></ul>
+        </div>
+      </section>
+
+      <!-- Titre descriptif de la séance active -->
+      <div id="sessionIntro" class="session-intro"></div>
+
+      <!-- Liste des 5 exercices -->
+      <div id="exercisesContainer" style="display:flex; flex-direction:column; gap:14px;"></div>
+
+      <!-- Carte Validation de fin de séance -->
+      <section class="completion-card">
+        <div id="completionToast" class="toast-feedback" role="status">
+          Séance validée ! Bravo 👏 Tes charges restent enregistrées pour la prochaine fois.
+        </div>
+
+        <button type="button" id="btnFinishWorkout" class="btn-finish-workout">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="finishWorkoutLabel">Terminer &amp; valider la séance</span>
+        </button>
+
+        <button type="button" id="btnResetChecksOnly" class="btn-reset-only">
+          Réinitialiser les coches uniquement
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <!-- =======================================================================
+       BARRE FLOTTANTE DE REPOS (STICKY BOTTOM REST TIMER)
+       ======================================================================= -->
+  <footer id="floatingRestBar" class="floating-rest-bar" aria-label="Chronomètre de repos">
+    <div class="rest-inner">
+      <div class="rest-progress-line">
+        <div id="restProgressFill" class="rest-progress-fill"></div>
+      </div>
+
+      <div class="rest-main-row">
+        <div class="rest-clock">
+          <div id="restDigits" class="rest-digits">01:30</div>
+          <div id="restSublabel" class="rest-sublabel">Repos prêt · 1:30</div>
+        </div>
+
+        <div class="rest-controls">
+          <button type="button" id="btnRestPlay" class="btn-rest-play">
+            <span id="restPlayLabel">Démarrer</span>
+          </button>
+          <button type="button" id="btnRestReset" class="btn-rest-reset" aria-label="Réinitialiser le chronomètre de repos">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="rest-bottom-row">
+        <div class="rest-presets">
+          <button type="button" class="btn-preset" data-sec="60">1:00</button>
+          <button type="button" class="btn-preset active" data-sec="90">1:30</button>
+          <button type="button" class="btn-preset" data-sec="120">2:00</button>
+        </div>
+
+        <button type="button" id="btnAutoRest" class="btn-auto-rest on" aria-pressed="true">
+          <span class="auto-dot"></span>
+          <span>Auto-repos</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =======================================================================
+       MODALE / BOTTOM-SHEET : CONSEILS CLÉS & SAUVEGARDE JSON
+       ======================================================================= -->
+  <div id="adviceModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="adviceModalTitle">
+    <div class="sheet-card">
+      <div class="sheet-header">
+        <h2 id="adviceModalTitle">Conseils &amp; Sauvegarde</h2>
+        <button type="button" id="btnCloseAdvice" class="btn-close-sheet" aria-label="Fermer">✕</button>
+      </div>
+
+      <div class="advice-card">
+        <h3>1. Progression (+1 à 2 kg)</h3>
+        <p>Choisis un poids qui rend les 2 ou 3 dernières répétitions difficiles tout en gardant une technique propre. Dès que tu valides le haut de la fourchette sur les 3 séries (ex. 3 × 12), augmente de <strong>1 à 2 kg</strong> à la séance suivante.</p>
+      </div>
+
+      <div class="advice-card">
+        <h3>2. Descente freinée (3 secondes)</h3>
+        <p>Ne te laisse jamais tomber en bas d'un squat, d'une fente ou d'une descente de marche. La <strong>descente freinée sur 3 secondes</strong> est ce qui renforce efficacement les tendons et protège tes genoux sur les pistes.</p>
+      </div>
+
+      <div class="advice-card knee-alert">
+        <h3>3. Feu vert / Feu rouge rotule</h3>
+        <p>Une brûlure musculaire intense dans les cuisses ou les fessiers est normale et recherchée. En revanche, une <strong>douleur aiguë ou pincée sur ou sous la rotule</strong> impose de descendre un peu moins bas ou de réduire légèrement la charge.</p>
+      </div>
+
+      <div class="backup-section">
+        <h3>Sauvegarde de sécurité (JSON)</h3>
+        <p>Tes poids et séances sont enregistrés automatiquement sur ce téléphone. Tu peux aussi exporter un fichier de sauvegarde.</p>
+        <div class="backup-buttons">
+          <button type="button" id="btnExportJson" class="btn-backup">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Exporter</span>
+          </button>
+          <button type="button" id="btnImportJsonTrigger" class="btn-backup">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Importer</span>
+          </button>
+          <input type="file" id="importJsonInput" accept=".json,application/json" style="display:none;" />
+        </div>
+        <div id="backupStatus" class="backup-status" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ========================================================================
+       DONNÉES DU PROGRAMME PRÉPA SKI (SÉANCE A & SÉANCE B)
+       ======================================================================== */
+    const WARMUP_ITEMS = [
+      {
+        id: 'w1',
+        title: 'Mobilisation articulaire (2 min)',
+        desc: 'Rotations douces des chevilles, flexions légères des genoux mains sur les cuisses, cercles de bassin.'
+      },
+      {
+        id: 'w2',
+        title: 'Pont fessier au sol (2 × 10 reps)',
+        desc: 'Au poids du corps, serre les fessiers 1 seconde en haut pour activer la chaîne postérieure.'
+      },
+      {
+        id: 'w3',
+        title: 'Squats lents poids du corps (1 × 10 reps)',
+        desc: 'Descente lente et contrôlée jusqu’à une amplitude confortable, sans aucune douleur.'
+      }
+    ];
+
+    const SESSIONS_DATA = {
+      A: {
+        id: 'A',
+        title: 'Séance A · Freinage & Appuis latéraux',
+        subtitle: 'Renforce le quadriceps en freinage, les ischio-jambiers et la prise de carre latérale.',
+        exercises: [
+          {
+            id: 'a1',
+            num: '01',
+            name: 'Squat Gobelet',
+            target: '3 × 10–12 reps',
+            cue: 'Descente lente sur 3s · Buste droit',
+            details: 'Un haltère tenu contre la poitrine. Descente lente sur 3 secondes, remontée dynamique. Garde le buste droit et pousse les genoux dans l\'axe des orteils. Renforce le tendon rotulien et le quadriceps en freinage.',
+            defaultWeight: 8,
+            allowBodyweightToggle: false,
+            defaultBodyweight: false,
+            timedSeconds: null
+          },
+          {
+            id: 'a2',
+            num: '02',
+            name: 'Soulevé de terre roumain',
+            target: '3 × 10–12 reps',
+            cue: 'Genoux souples · Dos plat · Étirement ischios',
+            details: 'Haltères ou barre. Genoux légèrement déverrouillés et fixes, pousse les fesses en arrière dos plat jusqu\'à sentir l\'étirement derrière les cuisses. Renforce les ischio-jambiers (bouclier du genou).',
+            defaultWeight: 12,
+            allowBodyweightToggle: false,
+            defaultBodyweight: false,
+            timedSeconds: null
+          },
+          {
+            id: 'a3',
+            num: '03',
+            name: 'Fentes latérales alternées',
+            target: '3 × 8 / jambe',
+            cue: 'Grand pas latéral · Poussée forte',
+            details: 'Poids du corps puis haltères. Fais un grand pas sur le côté, fléchis la jambe d\'appui en gardant l\'autre tendue, puis repousse fort. Reproduit la prise de carre et le transfert d\'appui en virage.',
+            defaultWeight: 4,
+            allowBodyweightToggle: true,
+            defaultBodyweight: true,
+            timedSeconds: null
+          },
+          {
+            id: 'a4',
+            num: '04',
+            name: 'Chaise contre un mur',
+            target: '3 × 40 sec',
+            cue: 'Dos plaqué · Talons ancrés',
+            details: 'Dos plaqué au mur, cuisses à 90° (ou un peu plus haut au début si ça tire sur la rotule), talons bien ancrés au sol. Habitue les cuisses à la brûlure en position schuss.',
+            defaultWeight: 5,
+            allowBodyweightToggle: true,
+            defaultBodyweight: true,
+            timedSeconds: 40
+          },
+          {
+            id: 'a5',
+            num: '05',
+            name: 'Gainage latéral',
+            target: '3 × 30 sec / côté',
+            cue: 'Corps aligné · Bassin haut',
+            details: 'Sur l\'avant-bras, corps aligné, bassin décollé du sol (genou inférieur au sol si trop difficile au début). Stabilise le bassin quand les jambes encaissent les irrégularités de la piste.',
+            defaultWeight: 0,
+            allowBodyweightToggle: true,
+            defaultBodyweight: true,
+            timedSeconds: 30
+          }
+        ]
+      },
+      B: {
+        id: 'B',
+        title: 'Séance B · Stabilité & Contrôle du genou',
+        subtitle: 'Développe la force globale, l’équilibre unilatéral et le contrôle fin de l’axe du genou.',
+        exercises: [
+          {
+            id: 'b1',
+            num: '01',
+            name: 'Soulevé de terre classique',
+            target: '3 × 8–10 reps',
+            cue: 'Dos plat · Poussée dans les talons',
+            details: 'Barre ou deux haltères lourds. Départ poids au sol (ou surélevé de quelques cm si manque de souplesse), dos plat, poussée dans les talons. Développe la force globale des jambes et du dos.',
+            defaultWeight: 16,
+            allowBodyweightToggle: false,
+            defaultBodyweight: false,
+            timedSeconds: null
+          },
+          {
+            id: 'b2',
+            num: '02',
+            name: 'Fentes arrière alternées',
+            target: '3 × 10 / jambe',
+            cue: 'Genou arrière effleure le sol · Buste fier',
+            details: 'Haltères en main. Recule un pied loin derrière, effleure le sol avec le genou arrière, puis remonte en poussant sur le talon avant. Moins agressif pour la rotule que la fente avant et très efficace pour l\'équilibre.',
+            defaultWeight: 6,
+            allowBodyweightToggle: true,
+            defaultBodyweight: false,
+            timedSeconds: null
+          },
+          {
+            id: 'b3',
+            num: '03',
+            name: 'Descente de marche lente (Step-Down)',
+            target: '3 × 10 / jambe',
+            cue: 'Descente 3s · Genou stable dans l\'axe',
+            details: 'Debout sur une marche (15–20 cm), descends lentement le talon opposé vers le sol sur 3 secondes en contrôlant que le genou d\'appui ne rentre pas vers l\'intérieur, puis remonte. Exercice n°1 de prévention du genou.',
+            defaultWeight: 4,
+            allowBodyweightToggle: true,
+            defaultBodyweight: true,
+            timedSeconds: null
+          },
+          {
+            id: 'b4',
+            num: '04',
+            name: 'Pont fessier lesté',
+            target: '3 × 12–15 reps',
+            cue: 'Poussée talons · Pause 1s en haut',
+            details: 'Dos au sol ou épaules sur banc, haltère sur le bassin. Pousse fort dans les talons pour monter le bassin, serre les fessiers 1 seconde en haut sans cambrer le bas du dos. Assure la propulsion et le maintien du bassin.',
+            defaultWeight: 10,
+            allowBodyweightToggle: false,
+            defaultBodyweight: false,
+            timedSeconds: null
+          },
+          {
+            id: 'b5',
+            num: '05',
+            name: 'Marche du fermier à un bras',
+            target: '3 × 30 sec / côté',
+            cue: 'Épaules horizontales · Marche lente',
+            details: 'Un seul haltère lourd en main, marche lentement en gardant les épaules parfaitement horizontales sans te pencher du côté du poids. Renforce la sangle abdominale profonde en position debout.',
+            defaultWeight: 10,
+            allowBodyweightToggle: false,
+            defaultBodyweight: false,
+            timedSeconds: 30
+          }
+        ]
+      }
+    };
+
+    /* ========================================================================
+       PERSISTANCE LOCALSTORAGE (CLÉ : ski_prep_tracker_v1)
+       ======================================================================== */
+    const STORAGE_KEY = 'ski_prep_tracker_v1';
+
+    const defaultState = {
+      activeSession: 'A',
+      completedWorkouts: 0,
+      autoRest: true,
+      restDuration: 90,
+      warmupOpen: false,
+      warmupChecks: { w1: false, w2: false, w3: false },
+      weights: {},     // ex: { a1: 8, a2: 12 }
+      useBodyweight: {}, // ex: { a3: true, a4: true }
+      sets: {},        // ex: { a1: [true, false, false] }
+      openDetails: {}  // ex: { a1: false }
+    };
+
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return initDefaults({ ...defaultState });
+        const parsed = JSON.parse(raw);
+        return initDefaults({
+          ...defaultState,
+          ...parsed,
+          warmupChecks: { ...defaultState.warmupChecks, ...(parsed.warmupChecks || {}) },
+          weights: parsed.weights || {},
+          useBodyweight: parsed.useBodyweight || {},
+          sets: parsed.sets || {},
+          openDetails: parsed.openDetails || {}
+        });
+      } catch (e) {
+        return initDefaults({ ...defaultState });
+      }
+    }
+
+    function initDefaults(st) {
+      ['A', 'B'].forEach(sessKey => {
+        SESSIONS_DATA[sessKey].exercises.forEach(ex => {
+          if (typeof st.weights[ex.id] !== 'number' && typeof st.weights[ex.id] !== 'string') {
+            st.weights[ex.id] = ex.defaultWeight;
+          }
+          if (typeof st.useBodyweight[ex.id] !== 'boolean') {
+            st.useBodyweight[ex.id] = ex.defaultBodyweight;
+          }
+          if (!Array.isArray(st.sets[ex.id]) || st.sets[ex.id].length !== 3) {
+            st.sets[ex.id] = [false, false, false];
+          }
+        });
+      });
+      return st;
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        // Ignorer si stockage restreint
+      }
+    }
+
+    /* ========================================================================
+       SYNTHÈSE SONORE DOUCE (WEB AUDIO API — CLOCHE HARMONIQUE ALPINE)
+       ======================================================================== */
+    let audioCtx = null;
+
+    function unlockAudio() {
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      } catch (e) {}
+    }
+
+    function playGentleChime() {
+      try {
+        unlockAudio();
+        if (!audioCtx) return;
+
+        const now = audioCtx.currentTime;
+        // Accord majeur doux (Fa5 -> La5 -> Do6) avec attaque feutrée
+        const frequencies = [698.46, 880.00, 1046.50];
+
+        frequencies.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          const startTime = now + idx * 0.16;
+
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.0001, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.16, startTime + 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.65);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.7);
+        });
+      } catch (e) {}
+
+      try {
+        if (navigator.vibrate) {
+          navigator.vibrate([120, 60, 160]);
+        }
+      } catch (e) {}
+    }
+
+    /* ========================================================================
+       GESTION DES CHRONOMÈTRES D'EFFORT INTÉGRÉS AUX CARTES (ISOMÉTRIE / MARCHE)
+       ======================================================================== */
+    // État en mémoire pour chaque chrono d'exercice : { running, remaining, duration, endTs, finished }
+    const effortTimers = {};
+    let effortTicker = null;
+
+    function getEffortTimerState(ex) {
+      if (!effortTimers[ex.id]) {
+        effortTimers[ex.id] = {
+          running: false,
+          duration: ex.timedSeconds,
+          remaining: ex.timedSeconds,
+          endTs: null,
+          finished: false
+        };
+      }
+      return effortTimers[ex.id];
+    }
+
+    function ensureEffortTicker() {
+      if (effortTicker) return;
+      effortTicker = setInterval(() => {
+        let anyRunning = false;
+        Object.keys(effortTimers).forEach(exId => {
+          const t = effortTimers[exId];
+          if (t.running) {
+            anyRunning = true;
+            const diff = (t.endTs - Date.now()) / 1000;
+            if (diff <= 0) {
+              t.remaining = 0;
+              t.running = false;
+              t.finished = true;
+              playGentleChime();
+            } else {
+              t.remaining = diff;
+            }
+            updateEffortButtonDOM(exId);
+          }
+        });
+        if (!anyRunning) {
+          clearInterval(effortTicker);
+          effortTicker = null;
+        }
+      }, 200);
+    }
+
+    function toggleEffortTimer(exId) {
+      unlockAudio();
+      const t = effortTimers[exId];
+      if (!t) return;
+
+      if (t.running) {
+        // Pause
+        t.remaining = Math.max(0, (t.endTs - Date.now()) / 1000);
+        t.running = false;
+      } else {
+        // Démarrer ou redémarrer si terminé
+        if (t.finished || t.remaining <= 0) {
+          t.remaining = t.duration;
+          t.finished = false;
+        }
+        t.running = true;
+        t.endTs = Date.now() + t.remaining * 1000;
+        ensureEffortTicker();
+      }
+      updateEffortButtonDOM(exId);
+    }
+
+    function resetEffortTimer(exId) {
+      const t = effortTimers[exId];
+      if (!t) return;
+      t.running = false;
+      t.finished = false;
+      t.remaining = t.duration;
+      t.endTs = null;
+      updateEffortButtonDOM(exId);
+    }
+
+    function updateEffortButtonDOM(exId) {
+      const box = document.querySelector(`.effort-timer-box[data-ex-id="${exId}"]`);
+      if (!box) return;
+      const t = effortTimers[exId];
+      const mainBtn = box.querySelector('.btn-effort-main');
+      const labelSpan = box.querySelector('.effort-label');
+      const digitsSpan = box.querySelector('.effort-digits');
+
+      box.classList.toggle('effort-done', t.finished);
+      mainBtn.classList.toggle('running', t.running);
+      mainBtn.classList.toggle('finished', t.finished);
+
+      const secsDisplay = Math.max(0, Math.ceil(t.remaining));
+      digitsSpan.textContent = formatMMSS(secsDisplay);
+
+      if (t.finished) {
+        labelSpan.textContent = 'Terminé !';
+      } else if (t.running) {
+        labelSpan.textContent = 'Pause';
+      } else if (t.remaining < t.duration) {
+        labelSpan.textContent = 'Reprendre';
+      } else {
+        labelSpan.textContent = `Chrono effort (${t.duration}s)`;
+      }
+    }
+
+    /* ========================================================================
+       RENDU DE L'INTERFACE
+       ======================================================================== */
+    const completedCountBadgeEl = document.getElementById('completedCountBadge');
+    const sessionProgressFillEl = document.getElementById('sessionProgressFill');
+    const sessionProgressTextEl = document.getElementById('sessionProgressText');
+    const warmupCardEl = document.getElementById('warmupCard');
+    const warmupBadgeEl = document.getElementById('warmupBadge');
+    const warmupListEl = document.getElementById('warmupList');
+    const sessionIntroEl = document.getElementById('sessionIntro');
+    const exercisesContainerEl = document.getElementById('exercisesContainer');
+
+    function renderAll() {
+      // Compteur global
+      completedCountBadgeEl.textContent = state.completedWorkouts;
+
+      // Onglets Séance A / Séance B
+      document.querySelectorAll('.seg-btn').forEach(btn => {
+        const active = btn.dataset.session === state.activeSession;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      // Échauffement
+      renderWarmup();
+
+      // Contenu de la séance active
+      const session = SESSIONS_DATA[state.activeSession];
+      sessionIntroEl.innerHTML = `
+        <h2>${escapeHtml(session.title)}</h2>
+        <p>${escapeHtml(session.subtitle)}</p>
+      `;
+
+      let cardsHtml = '';
+      session.exercises.forEach(ex => {
+        const setsArr = state.sets[ex.id] || [false, false, false];
+        const allThreeDone = setsArr.every(Boolean);
+        const isDetailsOpen = !!state.openDetails[ex.id];
+        const isBw = !!state.useBodyweight[ex.id];
+        const weightVal = state.weights[ex.id] !== undefined ? state.weights[ex.id] : ex.defaultWeight;
+
+        let effortHtml = '';
+        if (ex.timedSeconds) {
+          const tState = getEffortTimerState(ex);
+          const secsDisplay = Math.max(0, Math.ceil(tState.remaining));
+          const btnClass = tState.finished ? 'finished' : (tState.running ? 'running' : '');
+          const labelTxt = tState.finished
+            ? 'Terminé !'
+            : (tState.running ? 'Pause' : (tState.remaining < tState.duration ? 'Reprendre' : `Chrono effort (${ex.timedSeconds}s)`));
+
+          effortHtml = `
+            <div class="effort-timer-box ${tState.finished ? 'effort-done' : ''}" data-ex-id="${ex.id}">
+              <button type="button" class="btn-effort-main ${btnClass}" data-action="toggle-effort" data-ex-id="${ex.id}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span class="effort-label">${escapeHtml(labelTxt)}</span>
+                <span class="effort-digits">${formatMMSS(secsDisplay)}</span>
+              </button>
+              <button type="button" class="btn-effort-reset" data-action="reset-effort" data-ex-id="${ex.id}" aria-label="Remettre le chrono effort à zéro">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              </button>
+            </div>
+          `;
+        }
+
+        const weightControlHtml = isBw
+          ? `
+            <div class="bw-pill-display">
+              <span>Poids du corps</span>
+            </div>
+          `
+          : `
+            <div class="weight-stepper">
+              <button type="button" class="btn-step" data-action="step-weight" data-delta="-1" data-ex-id="${ex.id}" aria-label="Diminuer la charge de 1 kg">−</button>
+              <div class="weight-input-wrap">
+                <input
+                  type="text"
+                  inputmode="decimal"
+                  class="input-kg"
+                  data-action="input-weight"
+                  data-ex-id="${ex.id}"
+                  value="${escapeAttr(String(weightVal))}"
+                  aria-label="Charge en kilogrammes pour ${escapeAttr(ex.name)}"
+                />
+                <span class="unit-tag">kg</span>
+              </div>
+              <button type="button" class="btn-step" data-action="step-weight" data-delta="1" data-ex-id="${ex.id}" aria-label="Augmenter la charge de 1 kg">+</button>
+            </div>
+          `;
+
+        const bwSwitchLinkHtml = ex.allowBodyweightToggle
+          ? `<button type="button" class="btn-bw-switch" data-action="toggle-bw" data-ex-id="${ex.id}">
+              ${isBw ? '+ Ajouter un poids (kg)' : 'Passer au poids du corps'}
+            </button>`
+          : '';
+
+        cardsHtml += `
+          <article class="exercise-card ${allThreeDone ? 'card-completed' : ''}" data-card-id="${ex.id}">
+            <div class="ex-top-row">
+              <div class="ex-num-badge">${escapeHtml(ex.num)}</div>
+              <div class="ex-title-area">
+                <div class="ex-title-line">
+                  <h3 class="ex-name">${escapeHtml(ex.name)}</h3>
+                  <span class="ex-target-pill">${escapeHtml(ex.target)}</span>
+                </div>
+
+                <div class="ex-cue-pill">
+                  <span>✦</span>
+                  <span>${escapeHtml(ex.cue)}</span>
+                </div>
+
+                <div>
+                  <button type="button" class="btn-details-toggle ${isDetailsOpen ? 'open' : ''}" data-action="toggle-details" data-ex-id="${ex.id}" aria-expanded="${isDetailsOpen ? 'true' : 'false'}">
+                    <span>Consignes &amp; rôle ski</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                </div>
+
+                <div class="ex-details-drawer ${isDetailsOpen ? 'open' : ''}">
+                  ${escapeHtml(ex.details)}
+                </div>
+              </div>
+            </div>
+
+            ${effortHtml}
+
+            <div class="weight-row">
+              <div class="weight-label-col">
+                <span class="weight-label">Charge utilisée</span>
+                ${bwSwitchLinkHtml}
+              </div>
+              ${weightControlHtml}
+            </div>
+
+            <div class="sets-grid">
+              ${[0, 1, 2].map(idx => {
+                const isDone = !!setsArr[idx];
+                return `
+                  <button
+                    type="button"
+                    class="btn-set-check ${isDone ? 'done' : ''}"
+                    data-action="toggle-set"
+                    data-ex-id="${ex.id}"
+                    data-set-idx="${idx}"
+                    aria-pressed="${isDone ? 'true' : 'false'}"
+                  >
+                    <span class="set-check-box">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    <span>Série ${idx + 1}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </article>
+        `;
+      });
+
+      exercisesContainerEl.innerHTML = cardsHtml;
+      updateSessionProgress();
+    }
+
+    function renderWarmup() {
+      warmupCardEl.classList.toggle('open', !!state.warmupOpen);
+      document.getElementById('btnWarmupToggle').setAttribute('aria-expanded', state.warmupOpen ? 'true' : 'false');
+
+      let doneCount = 0;
+      let listHtml = '';
+
+      WARMUP_ITEMS.forEach(item => {
+        const isChecked = !!state.warmupChecks[item.id];
+        if (isChecked) doneCount++;
+
+        listHtml += `
+          <li>
+            <button type="button" class="warmup-item-btn ${isChecked ? 'checked' : ''}" data-warmup-id="${item.id}" aria-pressed="${isChecked ? 'true' : 'false'}">
+              <span class="warmup-check-circle">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="warmup-item-text">
+                <span class="warmup-item-title">${escapeHtml(item.title)}</span>
+                <span class="warmup-item-desc">${escapeHtml(item.desc)}</span>
+              </span>
+            </button>
+          </li>
+        `;
+      });
+
+      warmupListEl.innerHTML = listHtml;
+      warmupBadgeEl.textContent = `${doneCount}/3`;
+      warmupBadgeEl.classList.toggle('all-done', doneCount === 3);
+    }
+
+    function updateSessionProgress() {
+      const session = SESSIONS_DATA[state.activeSession];
+      let total = 0;
+      let done = 0;
+      session.exercises.forEach(ex => {
+        const arr = state.sets[ex.id] || [false, false, false];
+        total += arr.length;
+        done += arr.filter(Boolean).length;
+      });
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      sessionProgressFillEl.style.width = `${pct}%`;
+      sessionProgressTextEl.textContent = `${done} / ${total} séries`;
+    }
+
+    /* ========================================================================
+       INTERACTIONS : ONGLETS, ÉCHAUFFEMENT & CARTES D'EXERCICES
+       ======================================================================== */
+    document.querySelectorAll('.seg-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.activeSession = btn.dataset.session;
+        saveState();
+        hideCompletionToast();
+        renderAll();
+      });
+    });
+
+    document.getElementById('btnWarmupToggle').addEventListener('click', () => {
+      state.warmupOpen = !state.warmupOpen;
+      saveState();
+      renderWarmup();
+    });
+
+    warmupListEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.warmup-item-btn');
+      if (!btn) return;
+      const id = btn.dataset.warmupId;
+      state.warmupChecks[id] = !state.warmupChecks[id];
+      saveState();
+      renderWarmup();
+    });
+
+    exercisesContainerEl.addEventListener('click', (e) => {
+      const actionEl = e.target.closest('[data-action]');
+      if (!actionEl) return;
+
+      const action = actionEl.dataset.action;
+      const exId = actionEl.dataset.exId;
+
+      if (action === 'toggle-details') {
+        state.openDetails[exId] = !state.openDetails[exId];
+        saveState();
+        renderAll();
+      } else if (action === 'toggle-bw') {
+        state.useBodyweight[exId] = !state.useBodyweight[exId];
+        saveState();
+        renderAll();
+      } else if (action === 'step-weight') {
+        const delta = parseFloat(actionEl.dataset.delta);
+        const current = parseFloat(String(state.weights[exId]).replace(',', '.')) || 0;
+        const next = Math.max(0, Math.round((current + delta) * 10) / 10);
+        state.weights[exId] = next;
+        saveState();
+        renderAll();
+      } else if (action === 'toggle-set') {
+        unlockAudio();
+        const idx = parseInt(actionEl.dataset.setIdx, 10);
+        if (!Array.isArray(state.sets[exId])) state.sets[exId] = [false, false, false];
+        const nextVal = !state.sets[exId][idx];
+        state.sets[exId][idx] = nextVal;
+        saveState();
+        renderAll();
+
+        // Démarrer le repos automatiquement lorsqu'une série est cochée
+        if (nextVal && state.autoRest) {
+          startRestTimer(state.restDuration);
+        }
+      } else if (action === 'toggle-effort') {
+        toggleEffortTimer(exId);
+      } else if (action === 'reset-effort') {
+        resetEffortTimer(exId);
+      }
+    });
+
+    exercisesContainerEl.addEventListener('input', (e) => {
+      const target = e.target;
+      if (target.dataset.action === 'input-weight') {
+        const exId = target.dataset.exId;
+        const cleaned = target.value.replace(',', '.');
+        state.weights[exId] = cleaned;
+        saveState();
+      }
+    });
+
+    /* ========================================================================
+       VALIDATION DE FIN DE SÉANCE & RÉINITIALISATION DES COCHES
+       ======================================================================== */
+    const btnFinishWorkout = document.getElementById('btnFinishWorkout');
+    const finishWorkoutLabel = document.getElementById('finishWorkoutLabel');
+    const btnResetChecksOnly = document.getElementById('btnResetChecksOnly');
+    const completionToastEl = document.getElementById('completionToast');
+
+    let finishConfirmPending = false;
+    let finishConfirmTimer = null;
+    let resetOnlyConfirmPending = false;
+    let resetOnlyConfirmTimer = null;
+
+    function hideCompletionToast() {
+      completionToastEl.classList.remove('show');
+    }
+
+    function clearActiveSessionChecks() {
+      const session = SESSIONS_DATA[state.activeSession];
+      session.exercises.forEach(ex => {
+        state.sets[ex.id] = [false, false, false];
+        if (ex.timedSeconds) resetEffortTimer(ex.id);
+      });
+      state.warmupChecks = { w1: false, w2: false, w3: false };
+    }
+
+    btnFinishWorkout.addEventListener('click', () => {
+      if (!finishConfirmPending) {
+        finishConfirmPending = true;
+        btnFinishWorkout.classList.add('confirming');
+        finishWorkoutLabel.textContent = 'Confirmer la validation ? (+1 séance)';
+        clearTimeout(finishConfirmTimer);
+        finishConfirmTimer = setTimeout(() => {
+          finishConfirmPending = false;
+          btnFinishWorkout.classList.remove('confirming');
+          finishWorkoutLabel.textContent = 'Terminer & valider la séance';
+        }, 3800);
+        return;
+      }
+
+      clearTimeout(finishConfirmTimer);
+      finishConfirmPending = false;
+      btnFinishWorkout.classList.remove('confirming');
+      finishWorkoutLabel.textContent = 'Terminer & valider la séance';
+
+      state.completedWorkouts = (state.completedWorkouts || 0) + 1;
+      clearActiveSessionChecks();
+      saveState();
+      resetRestTimer();
+      renderAll();
+
+      completionToastEl.classList.add('show');
+      playGentleChime();
+    });
+
+    btnResetChecksOnly.addEventListener('click', () => {
+      if (!resetOnlyConfirmPending) {
+        resetOnlyConfirmPending = true;
+        btnResetChecksOnly.classList.add('confirming');
+        btnResetChecksOnly.textContent = 'Confirmer la remise à zéro des coches ?';
+        clearTimeout(resetOnlyConfirmTimer);
+        resetOnlyConfirmTimer = setTimeout(() => {
+          resetOnlyConfirmPending = false;
+          btnResetChecksOnly.classList.remove('confirming');
+          btnResetChecksOnly.textContent = 'Réinitialiser les coches uniquement';
+        }, 3500);
+        return;
+      }
+
+      clearTimeout(resetOnlyConfirmTimer);
+      resetOnlyConfirmPending = false;
+      btnResetChecksOnly.classList.remove('confirming');
+      btnResetChecksOnly.textContent = 'Réinitialiser les coches uniquement';
+
+      clearActiveSessionChecks();
+      saveState();
+      hideCompletionToast();
+      renderAll();
+    });
+
+    /* ========================================================================
+       CHRONOMÈTRE DE REPOS FLOTTANT (BASE TIMESTAMP DATE.NOW())
+       ======================================================================== */
+    const floatingRestBarEl = document.getElementById('floatingRestBar');
+    const restDigitsEl = document.getElementById('restDigits');
+    const restSublabelEl = document.getElementById('restSublabel');
+    const restProgressFillEl = document.getElementById('restProgressFill');
+    const btnRestPlay = document.getElementById('btnRestPlay');
+    const restPlayLabel = document.getElementById('restPlayLabel');
+    const btnRestReset = document.getElementById('btnRestReset');
+    const btnAutoRest = document.getElementById('btnAutoRest');
+    const presetBtns = document.querySelectorAll('.btn-preset');
+
+    let restDuration = state.restDuration || 90;
+    let restRemaining = restDuration;
+    let restRunning = false;
+    let restEndTimestamp = null;
+    let restInterval = null;
+
+    function formatMMSS(sec) {
+      const s = Math.max(0, Math.ceil(sec));
+      const m = Math.floor(s / 60);
+      const r = s % 60;
+      return `${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
+    }
+
+    function formatShortPreset(sec) {
+      const m = Math.floor(sec / 60);
+      const r = sec % 60;
+      return `${m}:${String(r).padStart(2, '0')}`;
+    }
+
+    function updateRestUI(finished = false) {
+      restDigitsEl.textContent = formatMMSS(restRemaining);
+      const pct = restDuration > 0 ? Math.max(0, Math.min(100, (restRemaining / restDuration) * 100)) : 0;
+      restProgressFillEl.style.width = `${pct}%`;
+
+      floatingRestBarEl.classList.toggle('rest-running', restRunning && !finished);
+      floatingRestBarEl.classList.toggle('rest-finished', finished);
+
+      if (finished) {
+        restSublabelEl.textContent = 'Repos terminé · Série suivante';
+        restPlayLabel.textContent = 'Démarrer';
+        btnRestPlay.classList.remove('is-running');
+      } else if (restRunning) {
+        restSublabelEl.textContent = 'Récupération en cours...';
+        restPlayLabel.textContent = 'Pause';
+        btnRestPlay.classList.add('is-running');
+      } else {
+        restSublabelEl.textContent = `Repos prêt · ${formatShortPreset(state.restDuration)}`;
+        restPlayLabel.textContent = 'Démarrer';
+        btnRestPlay.classList.remove('is-running');
+      }
+
+      presetBtns.forEach(btn => {
+        const sec = parseInt(btn.dataset.sec, 10);
+        btn.classList.toggle('active', sec === state.restDuration);
+      });
+
+      btnAutoRest.classList.toggle('on', !!state.autoRest);
+      btnAutoRest.setAttribute('aria-pressed', state.autoRest ? 'true' : 'false');
+    }
+
+    function stopRestInterval() {
+      if (restInterval) {
+        clearInterval(restInterval);
+        restInterval = null;
+      }
+    }
+
+    function startRestTimer(seconds = null) {
+      unlockAudio();
+      stopRestInterval();
+      floatingRestBarEl.classList.remove('rest-finished');
+
+      if (seconds !== null) {
+        restDuration = Math.max(5, seconds);
+        restRemaining = restDuration;
+      } else if (restRemaining <= 0) {
+        restRemaining = restDuration;
+      }
+
+      restRunning = true;
+      restEndTimestamp = Date.now() + restRemaining * 1000;
+      updateRestUI(false);
+
+      restInterval = setInterval(() => {
+        const diff = (restEndTimestamp - Date.now()) / 1000;
+        if (diff <= 0) {
+          restRemaining = 0;
+          restRunning = false;
+          stopRestInterval();
+          updateRestUI(true);
+          playGentleChime();
+        } else {
+          restRemaining = diff;
+          updateRestUI(false);
+        }
+      }, 200);
+    }
+
+    function pauseRestTimer() {
+      if (!restRunning) return;
+      restRemaining = Math.max(0, (restEndTimestamp - Date.now()) / 1000);
+      restRunning = false;
+      stopRestInterval();
+      updateRestUI(false);
+    }
+
+    function resetRestTimer() {
+      stopRestInterval();
+      restRunning = false;
+      restDuration = state.restDuration;
+      restRemaining = restDuration;
+      updateRestUI(false);
+    }
+
+    btnRestPlay.addEventListener('click', () => {
+      if (restRunning) {
+        pauseRestTimer();
+      } else {
+        startRestTimer(null);
+      }
+    });
+
+    btnRestReset.addEventListener('click', () => {
+      resetRestTimer();
+    });
+
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sec = parseInt(btn.dataset.sec, 10);
+        state.restDuration = sec;
+        saveState();
+        startRestTimer(sec);
+      });
+    });
+
+    btnAutoRest.addEventListener('click', () => {
+      state.autoRest = !state.autoRest;
+      saveState();
+      updateRestUI(false);
+    });
+
+    /* ========================================================================
+       BOTTOM-SHEET CONSEILS & EXPORT / IMPORT JSON
+       ======================================================================== */
+    const adviceModal = document.getElementById('adviceModal');
+    const btnOpenAdvice = document.getElementById('btnOpenAdvice');
+    const btnCloseAdvice = document.getElementById('btnCloseAdvice');
+    const btnExportJson = document.getElementById('btnExportJson');
+    const btnImportJsonTrigger = document.getElementById('btnImportJsonTrigger');
+    const importJsonInput = document.getElementById('importJsonInput');
+    const backupStatusEl = document.getElementById('backupStatus');
+
+    btnOpenAdvice.addEventListener('click', () => {
+      backupStatusEl.textContent = '';
+      adviceModal.classList.add('open');
+    });
+
+    btnCloseAdvice.addEventListener('click', () => {
+      adviceModal.classList.remove('open');
+    });
+
+    adviceModal.addEventListener('click', (e) => {
+      if (e.target === adviceModal) {
+        adviceModal.classList.remove('open');
+      }
+    });
+
+    btnExportJson.addEventListener('click', () => {
+      try {
+        const dataStr = JSON.stringify(state, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const dateTag = new Date().toISOString().slice(0, 10);
+        link.href = url;
+        link.download = `prepa-ski-sauvegarde-${dateTag}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        backupStatusEl.textContent = 'Fichier de sauvegarde téléchargé.';
+      } catch (e) {
+        backupStatusEl.textContent = 'Impossible d’exporter le fichier sur ce navigateur.';
+      }
+    });
+
+    btnImportJsonTrigger.addEventListener('click', () => {
+      importJsonInput.value = '';
+      importJsonInput.click();
+    });
+
+    importJsonInput.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          const parsed = JSON.parse(evt.target.result);
+          if (!parsed || typeof parsed !== 'object' || !parsed.weights) {
+            throw new Error('Format invalide');
+          }
+          state = initDefaults({
+            ...defaultState,
+            ...parsed
+          });
+          saveState();
+          renderAll();
+          resetRestTimer();
+          backupStatusEl.textContent = 'Sauvegarde restaurée avec succès !';
+        } catch (err) {
+          backupStatusEl.textContent = 'Fichier JSON non reconnu.';
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    /* ========================================================================
+       UTILITAIRES
+       ======================================================================== */
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function escapeAttr(str) {
+      return escapeHtml(str);
+    }
+
+    /* ========================================================================
+       INITIALISATION
+       ======================================================================== */
+    renderAll();
+    updateRestUI(false);
+  </script>
+</body>
+</html>
